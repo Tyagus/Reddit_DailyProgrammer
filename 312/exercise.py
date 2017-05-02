@@ -1,9 +1,10 @@
-#/r/dailyprogrammer -> Challange #312
+# /r/dailyprogrammer -> Challange #312
 # Description:
 # Given an integer, 
 # find the next largest integer using ONLY the digits 
 # from the given integer.
 # https://www.reddit.com/r/dailyprogrammer/comments/67q3s6/20170426_challenge_312_intermediate_next_largest/
+# Code: Tiago Ribeiro
 
 # import time for performance
 import time
@@ -61,6 +62,6 @@ for i in range(len(list)):
 
 print ("The solution is: ", solution)
 print ("The running time was: ", "--- %s seconds ---" % (time.time() - start_time))
-print ("End.")
+print ("--End--")
 end = input("Press a key to end the program...")
 
