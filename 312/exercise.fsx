@@ -1,14 +1,46 @@
+(*
+    # /r/dailyprogrammer -> Challange #312
+    # Description:
+    # Given an integer, 
+    # find the next largest integer using ONLY the digits 
+    # from the given integer.
+    # https://www.reddit.com/r/dailyprogrammer/comments/67q3s6/20170426_challenge_312_intermediate_next_largest/
+    Code by: TIago Ribeiro
+*)
 
+let rec distribute e = function
+  | [] -> [[e]]
+  | x::xs' as xs -> (e::xs)::[for xs in distribute e xs' -> x::xs]
 
-let getPermutations list = 
-    let rec permutations list taken =
-        seq {if Set.count taken = List.length list then yield [] else
-                for l in list do
-                    if not (Set.contains l taken) then
-                        for perm in permutations list (Set.add l taken) do
-                            yield l::perm}
-    permutations list Set.empty;;
+let rec permute = function
+  | [] -> [[]]
+  | e::xs -> List.collect (distribute e) (permute xs)
 
-let x = [1;2;3;4;5];;
+let rec ConvertToString list =
+   match list with
+   | head :: tail -> head.ToString() + ConvertToString tail
+   | [] -> ""
 
-getPermutations x
+let getString list = List.fold (fun acc x -> (ConvertToString x)::acc) [] list
+
+let rec listIntToInt list =
+    match list with
+    | [] -> 0
+    | n :: rest -> n * (pown 10 (list.Length-1)) + listIntToInt rest
+
+let main input = 
+    let inputInt = listIntToInt input
+
+    let allPerm = permute input
+
+    let allPermSort = List.sort (List.fold (fun acc x -> (int x)::acc ) [] (getString allPerm))
+
+    let solution = List.tryFind (fun x -> x > inputInt) allPermSort
+
+    solution;
+
+#time;;
+
+let input = [1;2;5;6;9;7;8;9]
+
+main input
