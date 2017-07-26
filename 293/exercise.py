@@ -49,7 +49,7 @@ solution = problem.getSolution()
 i = 4
 rule = []
 while(i > 0):
-    print("CABLES LEFT: " + i)
+    print("CABLES LEFT: " + str(i))
     print("Choose cable: \n| W / R / B / O / G / P |")
     choice = input("Choice: ")
     choice = str(choice).lower()
