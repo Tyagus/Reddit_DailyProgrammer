@@ -1,4 +1,4 @@
-# /r/dailyprogrammer -> Challange #312
+# /r/dailyprogrammer -> C	hallange #312
 # Description:
 # Given an integer, 
 # find the next largest integer using ONLY the digits 
@@ -7,61 +7,65 @@
 # Code: Tiago Ribeiro
 
 # import time for performance
-import time
-start_time = time.time()
+import timeit
+import profile
 
-# Helper function to get an int from a list of int
-def intFromList(numList):
-	s = map(str, numList)
-	s = ''.join(s)
-	s = int(s)
-	return s
+start = timeit.default_timer()
 
-# Gets all the permutations in a list using Heap Permutations algorithm
-def heapPermutations(number):
+def main ():
+	# Helper function to get an int from a list of int
+	def intFromList(numList):
+		s = map(str, numList)
+		s = ''.join(s)
+		s = int(s)
+		return s
 
-	listAlg = map(int, str(number))
-	allPermutations = []
+	# Gets all the permutations in a list using Heap Permutations algorithm
+	def heapPermutations(number):
 
-	def Heap(list, n, size):
+		listAlg = map(int, str(number))
+		allPermutations = []
 
-		if(size == 1):
-			allPermutations.append(intFromList(list))
+		def Heap(list, n, size):
 
-		for i in range(size):
-			Heap(list, n, size-1)
+			if(size == 1):
+				allPermutations.append(intFromList(list))
 
-			if(size%2==1):
-				temp = list[0]
-				list[0] = list[size-1]
-				list[size-1] = temp
-			else:
-				temp = list[i]
-				list[i] = list[size-1]
-				list[size-1] = temp
+			for i in range(size):
+				Heap(list, n, size-1)
 
-	Heap(listAlg, len(listAlg), len(listAlg))
-	return allPermutations
+				if(size%2==1):
+					temp = list[0]
+					list[0] = list[size-1]
+					list[size-1] = temp
+				else:
+					temp = list[i]
+					list[i] = list[size-1]
+					list[size-1] = temp
 
-# Value that will store the solution
-solution = 0
+		Heap(listAlg, len(listAlg), len(listAlg))
+		return allPermutations
 
-# Get input
-number = input("Input Number: ")
+	# Value that will store the solution
+	solution = 0
 
-# Get all the permutations
-list = (heapPermutations(number))
+	# Get input
+	number = input("Input Number: ")
 
-# Sort the permutations
-list.sort()
+	# Get all the permutations
+	list = (heapPermutations(number))
 
-# Returns the next number after the input
-for i in range(len(list)):
-	if(list[i]==number and (i+1) < len(list)):
-		solution = list[i+1]
+	# Sort the permutations
+	list.sort()
 
-print ("The solution is: ", solution)
-print ("The running time was: ", "--- %s seconds ---" % (time.time() - start_time))
+	# Returns the next number after the input
+	for i in range(len(list)):
+		if(list[i]==number and (i+1) < len(list)):
+			solution = list[i+1]
+	return solution
+
+profile.run('print("The solution is: ",main()); print()')
 print ("--End--")
+
 end = input("Press a key to end the program...")
 
